@@ -17,10 +17,7 @@ namespace BitmapToCSV
             csv = csv + input + ",";
 
         }
-        public void ResetString()
-        {
-            csv = "";
-        }
+        
         public Bitmap ConvertToGrayscale(string sourceFile) // Average method
         {
             Bitmap image = new Bitmap(sourceFile);
@@ -30,7 +27,7 @@ namespace BitmapToCSV
             int avg;
 
 
-            // Loop through the images pixels to reset color.
+            // Loop through the images pixels
             for (x = 0; x < image.Width; x++)
             {
                 for (y = 0; y < image.Height; y++)
@@ -46,7 +43,8 @@ namespace BitmapToCSV
                     //find average
                     avg = (r + g + b) / 3;
 
-
+                    // get the average grayscale data, put it in the string. 
+                    // This is done to have the data for a histogram aproach at a later date so images can be compared or other statistical attacks can be performed
                     SetString(avg.ToString());
                     //set new pixel value
                     image.SetPixel(x, y, Color.FromArgb(a, avg, avg, avg));
