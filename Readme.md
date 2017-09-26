@@ -1,4 +1,4 @@
-**Bitmap To CSV**
+**Bitmap To CSV**  
 Stupid console application that takes _one required_ argument as an image and ouputs the image data as grayscale ((r+b+g)/3) data as a CSV file.  
   
 Todo:  
