@@ -62,7 +62,7 @@ namespace BitmapToCSV
 
         }
 
-        public void ConvertToGrayscale(Bitmap image) // Average method
+        public void ConvertToGrayscale(Bitmap image) 
         {
             Color color;
             int y;
@@ -91,8 +91,6 @@ namespace BitmapToCSV
                     // REC 709 
                     avg = (int)(r * 0.2126 + g * 0.7152 + b * 0.0722);
 
-                    
-
                     // get the average grayscale data, put it in the string. 
                     // This is done to have the data for a histogram aproach at a later date so images can be compared or other statistical attacks can be performed
                     //SetString(avg.ToString()); // Original
@@ -119,10 +117,9 @@ namespace BitmapToCSV
         }
         public Bitmap ResizeImageToSquare(Bitmap bm, int size)
         {
-
-            // resize the input image as a string
+            Bitmap bmResize = new Bitmap(bm, size, size);
             
-            return bm;
+            return bmResize;
 
         }
 
@@ -217,10 +214,6 @@ namespace BitmapToCSV
                 }
             }
             
-
-            
-
-
 
         }
     }
