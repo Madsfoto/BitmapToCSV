@@ -117,14 +117,20 @@ namespace BitmapToCSV
 
 
         }
-        public Bitmap ResizeImageToSquare(String arg0, int size)
+        public Bitmap ResizeImageToSquare(Bitmap bm, int size)
         {
 
             // resize the input image as a string
-            Bitmap bm = new Bitmap(arg0);
+            
             return bm;
 
         }
+
+        public void RenameFileToCSVValues(String fn)
+        {
+            File.Move(fn, csv);
+        }
+
 
         static void Main(string[] args)
         {
@@ -136,28 +142,19 @@ namespace BitmapToCSV
              * Convert to grayscale (different weights?)
              * While converting the RGB values to gray, grab the resulting int and put it in a string or method that will do: 
              * int,int,int...int,int (classic csv format)
-             * 
-             *
-             * 
-             * 
              *
              */
 
-            /*
-             * Step 1: Make string with the filename
-             * Step 2: Set global string with the filename
-             * Step 3: Do the converstions with Bitmaps directly
-             * Step 4: Use the global filename string to write the filenames out.
-             * 
-             * 
-             * 
-             */
-
+            
 
             // if 0 arguments, show readme
             if (args == null || args.Length == 0 || args.Length > 3)
             {
-                Console.WriteLine("Readme");
+                Console.WriteLine("There are 3 ways to interact with this program."); 
+                Console.WriteLine("1: Give it a filename and it will create a filename.csv file in the same directory");
+                Console.WriteLine("2: Give it a filename and a integer smaller than 12, it will create a filename.csv file with the values of a square resized image from your filenme");
+                Console.WriteLine("3: Give it a filename and a integer smaller than 12 and the integer 1, it will rename the filename as the csv values themselves");
+
             }
             else if (args.Length == 1)
             {
@@ -184,7 +181,7 @@ namespace BitmapToCSV
                 }
                 else
                 {
-                    Bitmap resized = p.ResizeImageToSquare(args[0], argInt);
+                    Bitmap resized = p.ResizeImageToSquare(bitmap, argInt);
                     p.BitmapToGrayscaleCSV(resized);
                     
                     
@@ -195,18 +192,28 @@ namespace BitmapToCSV
             else if (args.Length == 3)
             // if 3 arguments, do resize to specified square, rename the input file to the pixel values (clamp to 12 pixels)
             {
+                string bmStr = args[0];
+                p.SetFileName(bmStr);
+
+                Bitmap bitmap = new Bitmap(args[0]);
                 int argInt = Int32.Parse(args[1]);
+                int RenameInt = Int32.Parse(args[2]);
                 if (argInt>12)
-                    {
+                {
                     Console.WriteLine("The image needs to be smaller than 12x12 pixes");
 
                 }
                 // if pixels more than 12, tell to fix
+                else if (RenameInt==1)
+                {
+                    Bitmap resized = p.ResizeImageToSquare(bitmap, argInt);
+                    p.BitmapToGrayscaleCSV(resized);
+                    p.RenameFileToCSVValues(p.GetFileName()); 
+
+                }
                 else
                 {
-                    Bitmap resized = p.ResizeImageToSquare(args[0], argInt);
-                    // p.RenameFileToCSVValues(resized); // To be implemented
-
+                    Console.WriteLine("The third argument needs to be 1 or not there");
                 }
             }
             
